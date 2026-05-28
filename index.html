@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <div class="hero-container">
+            <div class="hero">
+                <div class="innerDIv">
+                    <div class="carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="slide"><img src="image.png" alt=""></div>
+                            <div class="slide"><img src="image.png" alt=""></div>
+                            <div class="slide"><img src="image.png" alt=""></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="hero-arrow hero-arrow--left" aria-label="Previous" data-prev>‹</button>
+                <button class="hero-arrow hero-arrow--right" aria-label="Next" data-next>›</button>
+
+                <div class="hero-panel">
+                    <div class="panel-box panel-box--content">
+                        <div class="inner">
+                        <p class="eyebrow">Eyebrow</p>
+                        <h1>Welcome Developer!</h1>
+                        <p class="hero-desc">
+                            Your goal is to translate the provided Figma designs into a living, functional interface. We value pixel-perfection;<br>
+                            your output should match the design specifications exactly in terms of colour, spacing, typography, and visual<br>
+                            hierarchy.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn btn--primary">Shop Now</button>
+                            <button class="btn">Discover All</button>
+                        </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-dots" aria-hidden="true" data-dots></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text">
+        <h1>Heading </h1>
+        <div class="container">
+            <div class="card">
+                <p id="1">Brand Name</p>
+                <p id="2">Heading</p>
+                <p id="3">$80.95</p>
+                <p id ="4">$80.95</p>
+                
+            </div>
+             <div class="card">
+                <p id="1">Brand Name</p>
+                <p id="2">Heading</p>
+                <p id="3">$80.95</p>
+                <p id ="4">$80.95</p>
+                
+            </div>
+             <div class="card">
+                <p id="1">Brand Name</p>
+                <p id="2">Heading</p>
+                <p id="3">$80.95</p>
+                <p id ="4">$80.95</p>
+                
+            </div>
+             <div class="card">
+                <p id="1">Brand Name</p>
+                <p id="2">Heading</p>
+                <p id="3">$80.95</p>
+                <p id ="4">$80.95</p>
+                
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <script>
+        (function () {
+            const root = document.querySelector("[data-carousel]");
+            if (!root) return;
+
+            const track = root.querySelector(".carousel-track");
+            const slides = Array.from(root.querySelectorAll(".slide"));
+            const prev = document.querySelector("[data-prev]");
+            const next = document.querySelector("[data-next]");
+            const dotsWrap = document.querySelector("[data-dots]");
+
+            let index = 0;
+
+            const dots = slides.map((_, i) => {
+                const d = document.createElement("span");
+                d.className = "dot" + (i === 0 ? " dot--active" : "");
+                d.addEventListener("click", () => go(i));
+                dotsWrap.appendChild(d);
+                return d;
+            });
+
+            function render() {
+                track.style.transform = `translateX(${-index * 100}%)`;
+                dots.forEach((d, i) => d.classList.toggle("dot--active", i === index));
+            }
+
+            function go(i) {
+                index = (i + slides.length) % slides.length;
+                render();
+            }
+
+            prev && prev.addEventListener("click", () => go(index - 1));
+            next && next.addEventListener("click", () => go(index + 1));
+
+            // optional auto-advance
+            setInterval(() => go(index + 1), 5000);
+
+            render();
+        })();
+    </script>
+</body>
+</html>
